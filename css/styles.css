@@ -4180,6 +4180,90 @@ img.u-pull-left {
     right    : var(--gutter);
 }
 
+
+
+/* ===================================================================
+ * # CUSTOM CURSOR
+ *
+ *
+ * ------------------------------------------------------------------- */
+
+@media screen and (min-width: 1025px) {
+    html,
+    body,
+    * {
+        cursor: none !important;
+    }
+
+    .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background-color: var(--color-1);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease, background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+        overflow: visible;
+    }
+
+    .cursor .cursor-wave {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid rgba(212, 89, 165, 0.5);
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .cursor .cursor-wave.animate {
+        animation: cursor-wave 0.55s ease-out forwards;
+    }
+
+    .cursor.hover {
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-2);
+    }
+
+    .cursor.click {
+        width: 30px;
+        height: 30px;
+        background-color: var(--color-1);
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    @keyframes cursor-wave {
+        0% {
+            opacity: 0.35;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(3);
+        }
+    }
+}
+
+/* custom selection */
+::selection {
+    background: rgba(196, 18, 18, 0.35);
+    color: white;
+}
+
+::-moz-selection {
+    background: rgba(196, 18, 18, 0.35);
+    color: white;
+}
+
+
 .ss-go-top a {
     display          : flex;
     align-items      : center;

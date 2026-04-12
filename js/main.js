@@ -346,6 +346,75 @@
     }; // end ssMoveTo
 
 
+   /* Custom Cursor
+    * ------------------------------------------------------ */
+    const ssCustomCursor = function() {
+
+        // Only enable on desktop (min-width: 1025px)
+        if (window.matchMedia('(min-width: 1025px)').matches) {
+            const cursor = document.querySelector('.cursor');
+            if (!cursor) return;
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+
+            // Mouse move handler
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth cursor movement
+            function updateCursor() {
+                cursorX += (mouseX - cursorX) * 0.1;
+                cursorY += (mouseY - cursorY) * 0.1;
+                
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                
+                requestAnimationFrame(updateCursor);
+            }
+            updateCursor();
+
+            // Hover effects
+            const hoverElements = document.querySelectorAll('a, button, .btn, img, .folio-list__item-link, .intro-social a, .main-nav a');
+            
+            hoverElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursor.classList.remove('hover');
+                });
+            });
+
+            // Click effects
+            document.addEventListener('mousedown', function() {
+                cursor.classList.add('click');
+
+                const wave = document.createElement('span');
+                wave.className = 'cursor-wave';
+                cursor.appendChild(wave);
+
+                requestAnimationFrame(function() {
+                    wave.classList.add('animate');
+                });
+
+                wave.addEventListener('animationend', function() {
+                    wave.remove();
+                });
+            });
+            
+            document.addEventListener('mouseup', function() {
+                cursor.classList.remove('click');
+            });
+        }
+
+    }; // end ssCustomCursor
+
+
    /* Initialize
     * ------------------------------------------------------ */
     (function ssInit() {
@@ -358,6 +427,7 @@
         ssLightbox();
         ssAlertBoxes();
         ssMoveTo();
+        ssCustomCursor();
 
     })();
 
